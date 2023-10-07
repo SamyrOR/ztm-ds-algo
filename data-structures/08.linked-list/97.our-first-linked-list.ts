@@ -131,9 +131,45 @@ class LinkedList {
     }
     return currentNode;
   }
+
+  /* MY SOLUTION
+  reverse() {
+    if (this.length == 1) {
+      return this;
+    }
+    let counter = this.length - 1;
+    let reversedLinkedList = new LinkedList(this.tail.value);
+    while (counter > 0) {
+      let pointerHandler = this.traverseToIndex(counter - 1);
+      reversedLinkedList.append(pointerHandler.value);
+      counter--;
+    }
+    return reversedLinkedList.printList();
+  }
+  */
+
+  reverse() {
+    if (!this.head.next) {
+      return this.head;
+    }
+    let first = this.head;
+    this.tail = this.head;
+    let second = first.next;
+
+    while (second) {
+      const temp = second.next;
+      second.next = first;
+      first = second;
+      second = temp;
+    }
+
+    this.head.next = null;
+    this.head = first;
+    return this.printList();
+  }
 }
 
-let myLinkedList = new LinkedList(10);
+const myLinkedList = new LinkedList(10);
 myLinkedList.append(5);
 myLinkedList.append(16);
 myLinkedList.prepend(1);
@@ -142,4 +178,5 @@ myLinkedList.insert(20, 88);
 // myLinkedList.insert(-1, 11);
 myLinkedList.remove(2);
 myLinkedList.remove(2);
+myLinkedList.reverse();
 console.log(myLinkedList.printList());
